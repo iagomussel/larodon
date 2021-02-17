@@ -58,6 +58,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+		"install-all":[
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+			"@php artisan migrate"
+		]
     }
 }
