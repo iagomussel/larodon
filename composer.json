@@ -1,5 +1,5 @@
 {
-    "name": "iagomussel/Larodom",
+    "name": "iagomussel/larodom",
     "type": "project",
     "description": "Sistema para gerenciamento de clínicas odontológicas",
     "keywords": [
@@ -58,6 +58,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]1
+        ]
     }
 }
