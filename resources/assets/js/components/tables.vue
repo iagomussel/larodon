@@ -72,7 +72,7 @@
         },
         watch:{
             searchterm:function(search){
-                this.change_page(this.dados.current_page);
+                this.change_page(1);
             }
         }
 
