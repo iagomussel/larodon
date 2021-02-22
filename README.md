@@ -2,7 +2,7 @@
     Sistema de gerenciamento de clinicas Odontológicas, desenvolvido em laravel.
 
 
-### instalação
+## instalação
 
 ```shell
         git clone https://github.com/iagomussel/larodon.git
