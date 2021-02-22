@@ -4,20 +4,20 @@
 
 ### instalação
 
-    ```shell
-        git clone https://github.com/iagomussel/larodon.git
-        cd larodon  
-        composer install
-        npm install
-        php artisan key:generate
-        composer run post-root-package-install
-    ```
-    então edite o arquivo .env com os dados do banco
+```shell
+    git clone https://github.com/iagomussel/larodon.git
+    cd larodon  
+    composer install
+    npm install
+    php artisan key:generate
+    composer run post-root-package-install
+```
+então edite o arquivo .env com os dados do banco
 
-    ```shell
-        php artisan migrate
-        php -S localhost:8000
-    ```
+```shell
+    php artisan migrate
+    php -S localhost:8000
+```
 
 ## Sobre o Laravel
 
