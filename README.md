@@ -21,7 +21,11 @@ então edite o arquivo .env com os dados do banco
 
 ## Sobre o Laravel
 
-    Laravel é um framework de aplicação web com sintaxe expressiva e elegante. Acreditamos que o desenvolvimento deve ser uma experiência agradável e criativa para ser verdadeiramente gratificante. O Laravel tenta tirar a dor do desenvolvimento facilitando as tarefas comuns usadas na maioria dos projetos da web
+    Laravel é um framework de aplicação web com sintaxe expressiva e elegante.
+    Acreditamos que o desenvolvimento deve ser uma experiência agradável
+    e criativa para ser verdadeiramente gratificante. O Laravel tenta tirar a
+    dor do desenvolvimento facilitando as tarefas comuns usadas na maioria 
+    dos projetos da web
 
 ##
 
