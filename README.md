@@ -13,7 +13,14 @@
         composer run post-root-package-install
 ```
 então edite o arquivo .env com os dados do banco
-
+```env
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=odonto
+        DB_USERNAME=root
+        DB_PASSWORD=
+```
 ```shell
         php artisan migrate
         php -S localhost:8000
