@@ -50,7 +50,12 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="modal_form_content" aria-hidden="true">
+
+
+            
+        </div>
+    </div>
+            <div class="modal" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="modal_form_content">
                 <div class="modal-dialog" role="document" v-if="modal.page=='agendar'">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -98,11 +103,6 @@
                     </div>
                 </div>
             </div>
-
-            
-        </div>
-    </div>
-
 </div>
 </template>
 
@@ -180,7 +180,6 @@ export default {
         this.get_barra_horario();
         init_pacientes_select();
         init_procedimentos_select();
-        console.log("inited")
     },
     props: {
         horario_inicio: {
