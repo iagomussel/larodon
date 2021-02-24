@@ -1,5 +1,5 @@
 @extends('template')
-@section('title', 'Listagem de dentistas');
+@section('title', 'Listagem de dentistas')
 
 @section('content')
 

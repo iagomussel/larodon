@@ -51,6 +51,20 @@ Vue.component('hi-scheduler', SchedulerComponent);
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
 
+///FAZER SELECT2 ATUALIZAR OS DADOS DO VUE
+Vue.directive('select2', {
+  inserted(el) {
+      $(el).on('select2:select', () => {
+          const event = new Event('change', { bubbles: true, cancelable: true });
+          el.dispatchEvent(event);
+      });
+
+      $(el).on('select2:unselect', () => {
+          const event = new Event('change', {bubbles: true, cancelable: true})
+          el.dispatchEvent(event)
+      })
+  },
+});
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 $(() => {

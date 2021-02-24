@@ -14,13 +14,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row" v-bind:style="{ height: (horariosList().length*20)+'px' }">
+            <div class="row" v-bind:style="{ height: (horariosList().length*25)+'px' }">
                 <div class="col-1 p-0">
                     <div class="text-center">
                         <strong>#</strong>
                     </div>
                     <div class="events-container h-100">
-                        <div class="events-container-overlay w-100 text-center" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%' }">{{horario}}</div>
+                        <div class="events-container-overlay w-100 text-center" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%',height: tamanho_espaco(horario)+'%' }">{{horario}}</div>
                         <div class="events-container-overlay horarios_row text-center linha" v-bind:style="barra_hora">{{hora_atual}}</div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     <div class="text-center">{{section.nome}}</div>
 
                     <div class=" m-0 events-container h-100">
-                        <div class="events-container-overlay cell w-100" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%' }" v-on:dblclick="agendar(section.id,horario)"></div>
+                        <div class="events-container-overlay cell w-100" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%',height: tamanho_espaco(horario)+'%' }" v-on:dblclick="agendar(section.id,horario)"></div>
                         <div class="events-container-overlay evento" v-on:dblclick="ver_agendamento(evento)" v-for="evento in section.eventos" v-bind:key="evento.id" v-bind:style="{ top: position_horario(evento.horario)+'%',height: tamanho_horario(evento.horario,evento.horario_termino)+'%' }">
                             <slot>
                                 <div class="tool-container">
@@ -37,11 +37,6 @@
                                         <smalL>
                                             <span class="badge badge-default badge-pill">{{evento.horario}} - {{evento.horario_termino}}</span>
                                         </small>
-
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center pl-2">
-                                        <small>{{evento.procedimento_nome}}</small>
-                                        <small>{{evento.status}}</small>
                                     </div>
                                 </div>
                             </slot>
@@ -55,8 +50,8 @@
             
         </div>
     </div>
-            <div class="modal" id="modal_form" tabindex="-1" role="dialog" aria-labelledby="modal_form_content">
-                <div class="modal-dialog" role="document" v-if="modal.page=='agendar'">
+            <div class="modal" id="modal_form" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modal_form_content">Agendar</h5>
@@ -72,8 +67,8 @@
 
                             <div class="form-group">
                                 <label for="Paciente">Paciente</label>
-                                <select v-model="formulario.paciente_nome" v-select2 id="Paciente" name="Paciente" class="paciente_select form-control">
-                                    ...
+                                <select style="width:100%" v-select2 v-model="formulario.paciente_nome" id="Paciente" name="Paciente" class="paciente_select form-control">
+                                    <option disabled=disabled selected>Selecione...</option>
                                 </select>
 
                             </div>
@@ -108,8 +103,12 @@
 
 <script>
 function init_pacientes_select() {
-    $(".paciente_select").select2({
+  $(()=>{
+    console.log("init");
+    $(".paciente_select").select2( {
+        tags: true ,
         ajax: {
+            
             url: function (params) {
                 return 'api/pacientes/' + (params.term ? params.term : "");
             },
@@ -119,7 +118,7 @@ function init_pacientes_select() {
                 return {
                     results: data.data.map(function (item) {
                         return {
-                            id: item.nome,
+                            id: item.id,
                             text: item.nome
                         };
                     }),
@@ -135,16 +134,16 @@ function init_pacientes_select() {
             },
             // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
         },
-
-        tags: true,
         theme: "bootstrap"
 
     })
+  }) 
 }
 
 function init_procedimentos_select() {
     $(".procedimentos_select").select2({
-        ajax: {
+        
+        tags:true,        ajax: {
             url: function (params) {
                 return 'api/procedimentos/' + (params.term ? params.term : "");
             },
@@ -183,10 +182,10 @@ export default {
     },
     props: {
         horario_inicio: {
-            default: "00:00"
+            default: "08:00"
         },
         horario_final: {
-            default: "21:00"
+            default: "18:00"
         },
         intervalo: {
             default: 30
@@ -215,7 +214,7 @@ export default {
                 hora: 0,
                 paciente_nome: "",
                 paciente_telefone: "",
-                procedimento: 1,
+                procedimento: 0,
                 obs: ""
             },
             agendamento:{
@@ -290,9 +289,17 @@ export default {
             //calcular porcentagem para saber a altura do evento em relação ao quadro
             return this.get_porcent_horario(v_inicial, v_final, v_tamanho_ev);
         },
+        tamanho_espaco(inicio){
+            var v_inicio = moment(inicio, "H:m");
+            var v_intervalo = this.intervalo;
+            var v_fim = v_inicio.add(v_intervalo, "Minutes");
+            var fim = v_fim.format("H:m");
+            return this.tamanho_horario(inicio,fim);
+        },
         get_porcent_horario(inicio, fim, current) {
             //totas de minutos no dia
-            var diff_total = inicio.diff(fim, "seconds");
+            
+            var diff_total = inicio.diff(fim, "seconds");   
             var diff_evento = inicio.diff(current, "seconds");
             var percent = (diff_evento / diff_total) * 100;
             return percent < 100 ? percent : 100;
@@ -336,13 +343,16 @@ export default {
 }
 
 .events-container .cell {
+    border-top:thin solid black;
     background-color: white;
-    border-top: thin solid black;
+    box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
+-webkit-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
+-moz-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
     height: 40px;
 }
 
 .events-container .cell:hover {
-    background-color: aliceblue;
+    background-color: rgb(176, 211, 241);
 }
 
 .bg_traced {
@@ -355,20 +365,28 @@ export default {
 .events-container-overlay {
     position: absolute;
     z-index: 2;
+    
+    border-left:2px groove #0a0;
 }
 
 .evento {
-    background-color: #C6E0F5;
+    background-color: #abe0ae;
     border: thin solid #fff;
-    ;
     width: 98%;
     min-height: 25px;
     top: 0;
     left: 0;
 }
 
-.evento:hover {}
+.evento:hover .description {
+    display:block;
 
+}
+
+.evento .description {
+    display:hidden;
+
+}
 .linha {
     border-top: 1px solid blue;
     width: 100%;
@@ -387,7 +405,6 @@ export default {
 .evento .tool-container {
     position: relative;
     height: 100%;
-
     transition-duration: 4s;
 }
 

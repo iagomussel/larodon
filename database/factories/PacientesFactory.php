@@ -11,6 +11,7 @@ $factory->define(Pacientes::class, function (Faker $faker) {
         'nome'=>$faker->name,
         'data_nasc'=>$faker->dateTime(),
         'sexo'=>'M',
-        'email'=>$faker->safeEmail
+        'email'=>$faker->safeEmail,
+        'imagem'=>'https://thispersondoesnotexist.com/image?'.$faker->randomNumber()
     ];
 });

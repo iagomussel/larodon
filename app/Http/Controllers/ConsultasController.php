@@ -72,6 +72,8 @@ class ConsultasController extends Controller
 
     public function store(Request $request){
         
+
+
         $consulta = new Consultas();
         $dataehora = \DateTime::createFromFormat( 'd/m/Y', $request->dia );
         $timearray = explode(":",$request->hora);
@@ -83,14 +85,21 @@ class ConsultasController extends Controller
         $consulta->horario_termino = $dataehora->format( "Y-m-d H:i:s" );
         $consulta->dentista_id = $request->dentista;
         $consulta->status = "Agendado";
-        $consulta->paciente_nome = $request->paciente_nome;
-        $consulta->paciente_telefone = $request->paciente_telefone;
+        
+        //checar se o paciente ja existe
+        $paciente = Pacientes::find($request->paciente_nome);
+        if($paciente){
+            $consulta->paciente_nome = $paciente->nome;
+            $consulta->paciente_telefone = $request->paciente_telefone;
+        } else {
+            $consulta->paciente_nome = $request->paciente_nome;
+            $consulta->paciente_telefone = $request->paciente_telefone;
+        }
+        
         $consulta->procedimento_id = $request->procedimento;
         $consulta->obsercacao = $request->obs;
         $paciente = Pacientes::where("pacientes.nome","=",$request->paciente_nome)->first();
-        if($paciente){
-            $consulta->paciente_id = $paciente->id;
-        }
+       
 
         $consulta->save();
         return $consulta;
