@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div v-bind:key="section.id" v-for="section in dados.agendamentos" class="col p-0">
-                    <div class="text-center">{{section.nome}}</div>
+                    <div class="text-center no-overflow">{{section.nome}}</div>
 
                     <div class=" m-0 events-container h-100">
                         <div class="events-container-overlay cell w-100" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%',height: tamanho_espaco(horario)+'%' }" v-on:dblclick="agendar(section.id,horario)"></div>
@@ -337,6 +337,10 @@ export default {
 </script>
 
 <style>
+.no-overflow{
+
+    overflow:hidden;
+}
 .events-container {
     position: relative;
 
@@ -349,6 +353,7 @@ export default {
 -webkit-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
 -moz-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
     height: 40px;
+    
 }
 
 .events-container .cell:hover {
