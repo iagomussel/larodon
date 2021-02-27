@@ -16,8 +16,8 @@
             </div>
             <div class="row" v-bind:style="{ height: (horariosList().length*25)+'px' }">
                 <div class="col-1 p-0">
-                    <div class="text-center">
-                        <strong>#</strong>
+                    <div class="text-center section_name">
+                        <span>#</span>
                     </div>
                     <div class="events-container h-100">
                         <div class="events-container-overlay w-100 text-center" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%',height: tamanho_espaco(horario)+'%' }">{{horario}}</div>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div v-bind:key="section.id" v-for="section in dados.agendamentos" class="col p-0">
-                    <div class="text-center no-overflow">{{section.nome}}</div>
+                    <div class="text-center section_name"><span>{{section.nome}}</span></div>
 
                     <div class=" m-0 events-container h-100">
                         <div class="events-container-overlay cell w-100" v-for="horario in horariosList()" v-bind:key="horario" v-bind:style="{ top: position_horario(horario)+'%',height: tamanho_espaco(horario)+'%' }" v-on:dblclick="agendar(section.id,horario)"></div>
@@ -33,10 +33,10 @@
                             <slot>
                                 <div class="tool-container">
                                     <div class="d-flex justify-content-between align-items-center pl-2">
-                                        <small>{{evento.paciente_nome}}</small>
-                                        <smalL>
-                                            <span class="badge badge-default badge-pill">{{evento.horario}} - {{evento.horario_termino}}</span>
-                                        </small>
+                                        <small class="paciente_nome">{{evento.paciente_nome}}</small>
+                                    
+                                            <span class="horario">{{evento.horario}} - {{evento.horario_termino}}</span>
+                                     
                                     </div>
                                 </div>
                             </slot>
@@ -132,7 +132,6 @@ function init_pacientes_select() {
                     page: params.page || 1
                 };
             },
-            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
         },
         theme: "bootstrap"
 
@@ -167,7 +166,6 @@ function init_procedimentos_select() {
                     page: params.page || 1
                 };
             },
-            // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
         },
         theme: "bootstrap"
 
@@ -337,10 +335,24 @@ export default {
 </script>
 
 <style>
-.no-overflow{
+.section_name{
 
     overflow:hidden;
+    font-size:14px;
+    font-weigth:600;
+    height:50px;
+    vertical-align: middle;
+    outline:black thin solid;
+    
+    
 }
+.section_name span{
+
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .events-container {
     position: relative;
 
@@ -353,6 +365,9 @@ export default {
 -webkit-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
 -moz-box-shadow: -3px 0px 0px 0px rgba(0,0,0,0.34) inset;
     height: 40px;
+     -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
     
 }
 
@@ -372,6 +387,9 @@ export default {
     z-index: 2;
     
     border-left:2px groove #0a0;
+     -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 .evento {
@@ -381,11 +399,37 @@ export default {
     min-height: 25px;
     top: 0;
     left: 0;
+     -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
 }
 
-.evento:hover .description {
+.evento .paciente_nome {
     display:block;
-
+     -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size:10px;
+    color:black;
+    width:70%;
+}
+.evento .horario {
+    display:block;
+    position: absolute;
+  top:0;
+  right:0;
+  padding:2px;
+  background-color:white;
+  border-radius:2px;
+  
+    font-size:8px;
+    color:black;
+    
 }
 
 .evento .description {
