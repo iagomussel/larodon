@@ -20,7 +20,7 @@ class Dentistas extends Migration
 			$table->bigIncrements('id');			
             $table->string('nome',255);
             $table->string('especializacao',255)->nullable();
-            $table->bigInteger('id_usuario');			
+            $table->bigInteger('id_usuario')->nullable();			
             $table->string('imagem',500)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
