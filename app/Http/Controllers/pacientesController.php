@@ -98,18 +98,26 @@ class pacientesController extends Controller
         
         $paciente->save();
         //salva convenio
-        $convenio = new PacientesConvenios();
-        $convenio->convenio_id = $request->convenio;
-        $convenio->codigoAssociado = $request->codigoAssociado;
-        $convenio->paciente_id = $paciente->id;
+        dd($request->convenio);
+        if($request->convenio!=NULL){
+            $convenio = new PacientesConvenios();
+            $convenio->convenio_id = $request->convenio;
+            $convenio->codigoAssociado = $request->codigoAssociado;
+            $convenio->paciente_id = $paciente->id;
+        }
+
 
         $convenio->save();
-        //salva dentista
-        $dentista = new PacientesDentistas();
-        $dentista->paciente_id = $paciente->id;
-        $dentista->dentista_id = $request->dentista;
+        
+        if($request->dentista!=null){
 
-        $dentista->save();
+            $dentista = new PacientesDentistas();
+            $dentista->paciente_id = $paciente->id;
+            $dentista->dentista_id = $request->dentista;
+    
+            $dentista->save();
+        }
+
 
  
         //salva os telefones
@@ -263,22 +271,29 @@ class pacientesController extends Controller
         
         //exclui convenios anteriores
         PacientesConvenios::where(['paciente_id'=>$id])->forceDelete();
-        //salva convenio
-        $convenio = new PacientesConvenios();
-        $convenio->convenio_id = $request->convenio;
-        $convenio->codigoAssociado = $request->codigoAssociado;
-        $convenio->paciente_id = $paciente->id;
 
-        $convenio->save();
+        //salva convenio
+        if($request->convenio!=NULL){
+            $convenio = new PacientesConvenios();
+            $convenio->convenio_id = $request->convenio;
+            $convenio->codigoAssociado = $request->codigoAssociado;
+            $convenio->paciente_id = $paciente->id;
+            
+            $convenio->save();
+        }
+
 
         //excluir dentistas
         PacientesDentistas::where(['paciente_id'=>$id])->forceDelete();
         //salva dentista
-        $dentista = new PacientesDentistas();
-        $dentista->paciente_id = $paciente->id;
-        $dentista->dentista_id = $request->dentista;
+        if($request->dentista!=null){
 
-        $dentista->save();
+            $dentista = new PacientesDentistas();
+            $dentista->paciente_id = $paciente->id;
+            $dentista->dentista_id = $request->dentista;
+    
+            $dentista->save();
+        }
 
         //exclui telefones
         PacientesTelefones::where(['paciente_id'=>$id])->forceDelete();
