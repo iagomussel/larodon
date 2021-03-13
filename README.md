@@ -9,7 +9,7 @@
 *   Instalar um Editor de Texto/IDE ([Visual Studio Code](https://code.visualstudio.com/download), [Notepad++](https://notepad-plus-plus.org/download/v7.7.html)), [MySQL 5.7+](https://dev.mysql.com/downloads/mysql/5.7.html) (Ou driver de banco de dados de preferência), [PHP 7.2+](https://www.php.net/downloads.php) (Standalone ou parte de XAMPP, WAMP, etc)
 *   Instalar o [composer](http://getcomposer.org)
 *   Instalar uma ferramenta de git ([normal](https://git-scm.com/download/win), [git bash](https://gitforwindows.org/), [GitHub Desktop](https://desktop.github.com/))
-*   Fazer o clone do projeto com o git (**não é para baixar o zip**), exemplo: git clone https://github.com/RafaelLeveske/Sistema-de-anamnese-PHP-v2.git
+*   Fazer o clone do projeto com o git (**não é para baixar o zip**), exemplo: git clone https://github.com/iagomussel/larodon.git
 *   Navegar até a pasta que foi feito o clone e digitar os seguintes comandos:
 1. composer install
 2. Copiar o .env.example para .env e preencher os dados de conexão do banco de dados
