@@ -28,6 +28,8 @@
         "webpack": "^5.9.0"
     },
     "dependencies": {
+        
+        "elliptic": ">=6.5.4",
         "bootstrap-material-design": "^4.1.2",
         "bootstrap-vue": "^2.0.0-rc.27",
         "moment": "^2.24.0",
