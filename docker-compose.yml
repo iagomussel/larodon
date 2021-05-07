@@ -1,0 +1,36 @@
+version: '3'
+services:
+    app:
+        build:
+          context: .
+        image: larodon
+        container_name: larodon-app
+        restart: unless-stopped
+        networks:
+          - backend
+        ports:
+          - 8080:80
+        volumes:
+          - type: bind
+            source: ./
+            target: /var/www/
+
+    db:
+        image: mysql:5.7
+        container_name: laraveldb
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: bridge
+
+
