@@ -18,10 +18,8 @@ COPY . .
 RUN chmod -R 777 storage
 
 #set apache document root
-#RUN sed -i 's/\/var\/www\/html/\/var\/www\/public/g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's/\/var\/www\/html/\/var\/www\/public/g' /etc/apache2/sites-available/000-default.conf
 
-# Configure Apache Document Root
-ENV APACHE_DOC_ROOT /var/www/public
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
