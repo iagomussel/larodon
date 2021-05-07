@@ -28,4 +28,4 @@ RUN npm run production
 RUN composer install --ignore-platform-reqs
 RUN docker-php-ext-install pdo_mysql
 RUN php artisan key:generate
-RUN php artisan migrate
+CMD ./init.sh
