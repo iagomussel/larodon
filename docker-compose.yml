@@ -5,20 +5,18 @@ services:
           context: .
         image: larodon
         container_name: larodon-app
-        restart: unless-stopped
+        restart: always
         networks:
           - backend
         ports:
           - 8080:80
-        volumes:
-          - type: bind
-            source: ./
-            target: /var/www/
+        depends_on: 
+          - db
 
     db:
         image: mysql:5.7
         container_name: laraveldb
-        restart: unless-stopped
+        restart: always
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -27,8 +25,9 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         networks:
-            - backend
-
+          - backend
+        volumes:
+          - ./.docker/data:/var/lib/mysql
 networks:
     backend:
         driver: bridge

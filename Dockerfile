@@ -14,7 +14,7 @@ RUN npm i npm@latest -g
 WORKDIR /var/www
 RUN mv /var/www/html /var/www/public
 COPY . .
-RUN chmod 777 ./storage
+RUN chmod -R 777 ./storage
 #set apache document root
 RUN sed -i 's/\/var\/www\/html/\/var\/www\/public/g' /etc/apache2/sites-available/000-default.conf
  
@@ -23,6 +23,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 
 RUN npm install
+
 RUN npm run production
 RUN composer install --ignore-platform-reqs
-RUN php artisan 
+RUN docker-php-ext-install pdo_mysql
+RUN php artisan key:generate
+RUN php artisan migrate
