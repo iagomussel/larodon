@@ -1,7 +1,0 @@
-* text=auto
-*.css linguist-vendored
-*.scss linguist-vendored
-*.js linguist-vendored
-*.code-workspace
-.vscode/*
-CHANGELOG.md export-ignore
