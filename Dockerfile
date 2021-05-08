@@ -1,8 +1,10 @@
 FROM php:8.0.5-apache
 #### this image has uploaded to hub, and this file is unused
 #install dependencies
-RUN apt-get update && apt-get install -y git curl lsb-release gnupg
+RUN apt-get update && apt-get install -y git curl lsb-release gnupg git-cli
 
+#download source
+git clone https://github.com/iagomussel/larodon.git /var/www
 
 #install node
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash
