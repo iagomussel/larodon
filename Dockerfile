@@ -1,10 +1,13 @@
 FROM php:8.0.5-apache
 #### this image has uploaded to hub, and this file is unused
 #install dependencies
-RUN apt-get update && apt-get install -y git curl lsb-release gnupg git-cli
+RUN apt-get update && apt-get install -y git curl lsb-release gnupg  git-all
 
+WORKDIR /var/www
+
+RUN rm -rf ./*
 #download source
-git clone https://github.com/iagomussel/larodon.git /var/www
+RUN git clone https://github.com/iagomussel/larodon.git .
 
 #install node
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash
@@ -14,8 +17,6 @@ RUN apt install -y nodejs
 #npm updating    
 RUN npm i npm@latest -g
 
-WORKDIR /var/www
-RUN mv /var/www/html /var/www/public
 COPY . .
 RUN chmod -R 777 storage
 
