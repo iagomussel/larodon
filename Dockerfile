@@ -1,49 +1,30 @@
-#
-# PHP Dependencies
-#
-FROM composer:2.0 as vendor
+FROM php:8.0.6-apache 
 
-WORKDIR /app
+WORKDIR /var/www
 
-COPY . .
+EXPOSE 80
 
-RUN composer install \
-    --no-interaction \
-    --no-plugins \
-    --no-scripts \
-    --no-dev \
-    --prefer-dist \
-    --ignore-platform-reqs
-RUN composer dump-autoload
+#set apache document root
+RUN sed -i 's/\/var\/www\/html/\/var\/www\/public/g' /etc/apache2/sites-available/000-default.conf
 
-
-#
-# Frontend
-#
-FROM node:14.9 as frontend
-
-WORKDIR /app
-
-COPY --from=vendor /app/ .
-
-RUN rm -f package.lock
-
-RUN npm install
-
-RUN npm run production
-
-#
-# Application
-#
-FROM php:8.0.5-apache as end
-
-WORKDIR /app
 
 # Install PHP dependencies
-RUN apt-get update -y && apt-get install -y libxml2-dev
+RUN apt-get update -y && apt-get install -y libxml2-dev curl git
 RUN docker-php-ext-install pdo pdo_mysql
+#install some base extensions
+RUN apt-get install -y \
+        zlib1g-dev \
+        zip \
+  && docker-php-ext-install zip
 
-# Copy Frontend build
-COPY --from=frontend /app/ .
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN apt-get update -y && apt-get install -y nodejs
 
-RUN php artisan key:generate
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+COPY ./start.sh /tmp
+RUN chmod +x /tmp/start.sh
+
+CMD [ "/tmp/start.sh" ]
