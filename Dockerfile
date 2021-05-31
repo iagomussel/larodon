@@ -28,6 +28,9 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 COPY ./start.sh /tmp
+
+COPY ./wait.html /tmp
 RUN chmod +x /tmp/start.sh
+RUN  sed -i -e 's/\r$//' /tmp/start.sh
 
 CMD [ "/tmp/start.sh" ]
