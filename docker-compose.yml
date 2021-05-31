@@ -12,7 +12,7 @@ services:
         depends_on: 
           - db
         volumes: 
-          - ".env:/var/www/.env"
+          - "./.env:/var/www/.env"
           - "./application:/var/www"
 
 
