@@ -10,12 +10,15 @@ RUN sed -i 's/\/var\/www\/html/\/var\/www\/public/g' /etc/apache2/sites-availabl
 
 # Install PHP dependencies
 RUN apt-get update -y && apt-get install -y libxml2-dev curl git
+
+
 RUN docker-php-ext-install pdo pdo_mysql
 #install some base extensions
 RUN apt-get install -y \
         zlib1g-dev \
-        zip \
-  && docker-php-ext-install zip
+        libzip-dev \
+        zip     
+RUN docker-php-ext-install zip
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 RUN apt-get update -y && apt-get install -y nodejs
