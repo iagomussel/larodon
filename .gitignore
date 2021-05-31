@@ -10,4 +10,5 @@ application/npm-debug.log
 application/yarn-error.log
 application/.editorconfig
 application/vscodeproject.code-workspace
+application/composer.lock
 .docker/data
