@@ -17,7 +17,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN apt-get install -y \
         zlib1g-dev \
         libzip-dev \
-        zip     
+        zip
 RUN docker-php-ext-install zip
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
@@ -32,5 +32,7 @@ COPY ./start.sh /tmp
 COPY ./wait.html /tmp
 RUN chmod +x /tmp/start.sh
 RUN  sed -i -e 's/\r$//' /tmp/start.sh
+RUN npm install -g http-server pm2
+
 
 CMD [ "/tmp/start.sh" ]
