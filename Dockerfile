@@ -29,10 +29,9 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN a2enmod rewrite
 COPY ./start.sh /tmp
 
-COPY ./wait.html /tmp
+COPY ./wait /tmp
 RUN chmod +x /tmp/start.sh
 RUN  sed -i -e 's/\r$//' /tmp/start.sh
 RUN npm install -g http-server pm2
-
 
 CMD [ "/tmp/start.sh" ]
