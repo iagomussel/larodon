@@ -8,22 +8,9 @@ import VueResource from 'vue-resource';
 import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
+
 import 'select2';
 
-/* fazendo select2 responder a vuejs*/
-Vue.directive('select2', {
-  inserted(el) {
-    $(el).on('select2:select', () => {
-      const event = new Event('change', { bubbles: true, cancelable: true });
-      el.dispatchEvent(event);
-    });
-
-    $(el).on('select2:unselect', () => {
-      const event = new Event('change', { bubbles: true, cancelable: true })
-      el.dispatchEvent(event)
-    })
-  },
-});
 
 import moment from 'moment';
 
@@ -48,6 +35,7 @@ import SchedulerComponent from './components/scheduler.vue';
 Vue.component('hi-scheduler', SchedulerComponent);
 
 
+
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
 
@@ -67,6 +55,7 @@ Vue.directive('select2', {
 });
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 $(() => {
 
   var vueall = new Vue({
