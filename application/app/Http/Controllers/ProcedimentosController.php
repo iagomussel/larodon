@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Procedimentos;
+use Illuminate\Http\Request;
 
 class ProcedimentosController extends Controller
 {
@@ -19,12 +19,13 @@ class ProcedimentosController extends Controller
      */
     public function index()
     {
-        return view("procedimentos.index");
+        return view('procedimentos.index');
     }
-    public function listar($q = null){
-        return Procedimentos::where('nome','LIKE',"%".$q."%")
-        ->paginate(10);
 
+    public function listar($q = null)
+    {
+        return Procedimentos::where('nome', 'LIKE', '%'.$q.'%')
+        ->paginate(10);
     }
 
     /**
@@ -34,13 +35,14 @@ class ProcedimentosController extends Controller
      */
     public function create()
     {
-        return view("procedimentos.create");
+        return view('procedimentos.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,13 +53,15 @@ class ProcedimentosController extends Controller
         $proc->nome = $request->nome;
         $proc->descricao = $request->descricao;
         $proc->save();
+
         return redirect()->route('procedimentos.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,10 +70,12 @@ class ProcedimentosController extends Controller
 
         return view('procedimentos.show')->with(compact('procedimento'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -80,8 +86,9 @@ class ProcedimentosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,13 +97,15 @@ class ProcedimentosController extends Controller
         $proc->nome = $request->nome;
         $proc->descricao = $request->descricao;
         $proc->save();
+
         return redirect()->route('procedimentos.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

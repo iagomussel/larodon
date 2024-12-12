@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Dentistas;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class dentistasController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -22,12 +21,13 @@ class dentistasController extends Controller
      */
     public function index()
     {
-        return view("dentistas.index");
+        return view('dentistas.index');
     }
-    public function listar($q = null){
-        return Dentistas::where('nome','LIKE',"%".$q."%")
-        ->paginate(10);
 
+    public function listar($q = null)
+    {
+        return Dentistas::where('nome', 'LIKE', '%'.$q.'%')
+        ->paginate(10);
     }
 
     /**
@@ -37,13 +37,14 @@ class dentistasController extends Controller
      */
     public function create()
     {
-        return view("dentistas.create");
+        return view('dentistas.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,20 +59,20 @@ class dentistasController extends Controller
         $proc->nome = $request->nome;
         $proc->especializacao = $request->especializacao;
 
-
         $user->save();
-        
+
         $proc->id_usuario = $user->id;
 
         $proc->save();
-        
+
         return redirect()->route('dentistas.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -80,10 +81,12 @@ class dentistasController extends Controller
 
         return view('dentistas.show')->with(compact('dentista'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -94,8 +97,9 @@ class dentistasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -104,15 +108,16 @@ class dentistasController extends Controller
         $proc->nome = $request->nome;
         $proc->especializacao = $request->especializacao;
 
-
         $proc->save();
+
         return redirect()->route('dentistas.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

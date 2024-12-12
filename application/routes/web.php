@@ -11,33 +11,27 @@
 |
 */
 
-
-
-
-
 Route::resources([
-    'pacientes'=> 'pacientesController',
-    'dentistas'=>'dentistasController',
-    'convenios'=>'ConveniosController',
-    'procedimentos'=>'ProcedimentosController'
+    'pacientes'    => 'pacientesController',
+    'dentistas'    => 'dentistasController',
+    'convenios'    => 'ConveniosController',
+    'procedimentos'=> 'ProcedimentosController',
 
-    ]);
+]);
 
-
-Route::get('api/pacientes/{term?}',     'pacientesController@listar')->name('api.pacientes');
-Route::get('api/dentistas/{term?}',     'dentistasController@listar')->name('api.dentistas');
-Route::get('api/convenios/{term?}',     'ConveniosController@listar')->name('api.convenios');
+Route::get('api/pacientes/{term?}', 'pacientesController@listar')->name('api.pacientes');
+Route::get('api/dentistas/{term?}', 'dentistasController@listar')->name('api.dentistas');
+Route::get('api/convenios/{term?}', 'ConveniosController@listar')->name('api.convenios');
 Route::get('api/procedimentos/{term?}', 'ProcedimentosController@listar')->name('api.procedimentos');
 
 Route::get('api/consultas/{term?}', 'ConsultasController@listar')->name('api.consultas');
-Route::get('consultas','ConsultasController@index')->name('consultas.index');
-Route::post('consultas','ConsultasController@store')->name('consultas.store');
-
+Route::get('consultas', 'ConsultasController@index')->name('consultas.index');
+Route::post('consultas', 'ConsultasController@store')->name('consultas.store');
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-;
-Route::get('login',"authController@login")->name('login');
-Route::post('login',"authController@processa");
-Route::get('logout',"authController@logout")->name('logout');
+
+Route::get('login', 'authController@login')->name('login');
+Route::post('login', 'authController@processa');
+Route::get('logout', 'authController@logout')->name('logout');

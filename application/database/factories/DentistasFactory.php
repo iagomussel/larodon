@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Dentistas::class, function (Faker $faker) {
     return [
-        
-        'nome'=>$faker->name
+
+        'nome'=> $faker->name,
     ];
 });

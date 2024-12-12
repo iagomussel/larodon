@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Pacientes;
+use Illuminate\Database\Seeder;
 
 class PacientesSeeder extends Seeder
 {
@@ -13,6 +13,6 @@ class PacientesSeeder extends Seeder
     public function run()
     {
         //
-        $pacientes = factory(Pacientes::class,1000)->create();
+        $pacientes = factory(Pacientes::class, 1000)->create();
     }
 }

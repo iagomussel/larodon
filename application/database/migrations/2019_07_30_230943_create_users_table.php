@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -13,7 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-
         Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -27,10 +26,10 @@ class CreateUsersTable extends Migration
 
         DB::table('users')->insert(
             [
-                'email' => 'admin@admin.com',
-                'username'=>'admin',
-                'password'=>Hash::make('admin'),
-                'email_verified_at' => now()
+                'email'             => 'admin@admin.com',
+                'username'          => 'admin',
+                'password'          => Hash::make('admin'),
+                'email_verified_at' => now(),
             ]
         );
     }
