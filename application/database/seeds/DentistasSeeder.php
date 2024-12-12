@@ -12,7 +12,6 @@ class DentistasSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\Dentistas::class,4)->create();
-
+        factory(App\Dentistas::class, 4)->create();
     }
 }

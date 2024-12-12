@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Convenios;
+use Illuminate\Http\Request;
 
 class ConveniosController extends Controller
 {
@@ -19,13 +19,15 @@ class ConveniosController extends Controller
 
     public function index()
     {
-        return view("convenios.index");
+        return view('convenios.index');
     }
-    public function listar($q = null){
-        return Convenios::
-        where('nome','LIKE',"%".$q."%")
+
+    public function listar($q = null)
+    {
+        return Convenios::where('nome', 'LIKE', '%'.$q.'%')
         ->paginate(10);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +41,8 @@ class ConveniosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,13 +50,15 @@ class ConveniosController extends Controller
         $convenio = new Convenios();
         $convenio->nome = $request->nome;
         $convenio->save();
+
         return redirect()->route('convenios.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,7 +71,8 @@ class ConveniosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,25 +83,26 @@ class ConveniosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        
         $convenio = Convenios::find($id);
 
         $convenio->nome = $request->nome;
         $convenio->save();
-        return redirect()->route('convenios.index');
 
+        return redirect()->route('convenios.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

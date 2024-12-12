@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePacientesConveniosTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreatePacientesConveniosTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('paciente_id');
             $table->bigInteger('convenio_id');
-            $table->string('CodigoAssociado',100)->nullable();
+            $table->string('CodigoAssociado', 100)->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pacientes extends Model
 {
     use SoftDeletes;
-    protected $dates = ['data_nasc','deleted_at'];
-
+    protected $dates = ['data_nasc', 'deleted_at'];
 }

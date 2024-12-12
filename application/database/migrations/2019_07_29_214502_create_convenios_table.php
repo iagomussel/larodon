@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateConveniosTable extends Migration
 {
@@ -15,8 +15,8 @@ class CreateConveniosTable extends Migration
     {
         Schema::create('convenios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome',255);
-            
+            $table->string('nome', 255);
+
             $table->timestamps();
         });
     }
